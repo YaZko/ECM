@@ -1,0 +1,88 @@
+\documentclass[a4paper]{article}
+
+\usepackage[francais]{babel}
+\usepackage[applemac]{inputenc}
+\usepackage{fontenc}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{mathenv}
+\usepackage{a4wide}
+%\usepackage{fullpage}
+
+\newtheorem{prop}{Propriété}
+\newtheorem{lemme}{Lemme}
+\newtheorem{defi}{Définition}
+\newtheorem{cor}{Corollaire}
+\newtheorem*{rmq}{Remarque}
+\newtheorem*{ex}{Exemple}
+
+\newcommand{\lis}[2]{#1_1,\;\dots,\;#1_{#2}}
+
+\title{Calcul formel}
+\author{Christophe Vuillot et Yannick Zakowski}
+\begin{document}
+\maketitle
+ 
+ Considérons la courbe elliptique $\mathcal{E}$ d'équation $y^2=x^3+ax+1.$
+ 
+ Soit $P=(x_P,\; y_P)$ et $Q =(x_Q, \; y_Q)$ deux points de $\mathcal{E}.$\\
+ 
+ La droite $(PQ)$ a pour équation : 
+ \[y=\lambda x+ y_P - \lambda x_P \text{ avec }\lambda = \frac{y_Q-y_P}{x_Q-x_P} \]
+ 
+ Cherchons les coordonnées du troisième point d'intersection de cette droite avec $\mathcal{E} : $\\
+\begin{equation*}
+\left\{
+\begin{aligned}
+	&y=\lambda x+ y_P - \lambda x_P \\
+	&y^2=x^3+ax+1
+\end{aligned}
+\right.
+\end{equation*}
+
+Son abscisse vérifie donc :
+\begin{equation*}
+\begin{aligned}
+	&(\lambda x+ y_P - \lambda x_P)^2=x^3+ax+1\\
+	&x^3 - \lambda^2x^2+(a+2\lambda^2x_P-2\lambda y_P)x+1=0\\
+	x_P\text{ étant solution }&(x-x_P)(x^2+(x_P-\lambda^2)x+(a+2\lambda^2x_P-2\lambda y_P+x_P(x_P-\lambda^2))=0\\
+	x_Q\text{ étant solution }&(x-x_P)(x-x_Q)(x+x_P+x_Q-\lambda^2)=0
+\end{aligned}
+\end{equation*}
+
+$
+\text{D'où }\left\{
+\begin{aligned}
+	&x_{P+Q}=\lambda^2 - x_p - x_Q\\
+	&y_{P+Q}=-(\lambda(\lambda^2- x_P - x_Q) +y_P-\lambda x_P)
+\end{aligned}
+\right.
+$
+$\left\{
+\begin{aligned}
+	&x=\lambda^2 - x_p - x_Q\\
+	&y=-\lambda(\lambda^2-2x_P - x_Q) -y_P
+\end{aligned}
+\right.
+$
+
+$\text{Soit }\left\{
+\begin{aligned}
+	&x=\lambda^2 - x_p - x_Q\\
+	&y=\lambda(x_P + x_Q - x_{P+Q}) -y_P
+\end{aligned}
+\right.
+$
+
+
+ \end{document}
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -104,7 +104,7 @@ Point Point::operator*(int k)
 }
 
 
-void Point::print() 
+void Point::printPoint() 
 {
     if (infty)
     {

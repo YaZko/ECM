@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include "utils.h"
 #include "Point.h"
 #include <vector>
 #include <math.h>
@@ -85,7 +86,7 @@ vector<int> ecm(int N)
             try {
                 printf("prime : %d\n", power_primes[i]);
                 P = P*power_primes[i];
-                P.print();
+                P.printPoint();
             } catch (Damned d) {
                 g = d.get_int();
                 printf("LOL : %d",g);   
@@ -99,16 +100,22 @@ vector<int> ecm(int N)
 
 int main()
 {
-    Point p(0,3,6,1);
-    Point q(0,2,6,1);
-    Point r(0,2,6,1);
-    p.print();
-    q.print();
-    (q+q).print();
-    (q*2).print();
-    p.print();
-    q.print();
-    if (r==q){printf("true\n");} else {printf("false\n");}
-    print((ecm(6)));
-    return 0;
+  int a,b,u,v;
+  a = 3;
+  b = 7;
+  bezout(a,b,&u,&v);
+    printf("a : %d, b : %d -> u : %d, v : %d\n",a,b,u,v);
+  Point p(0,3,6,1);
+  Point q(0,2,6,1);
+  Point r(0,2,6,1);
+  p.printPoint();
+  q.printPoint();
+  (q+q).printPoint();
+  (q*2).printPoint();
+  p.printPoint();
+  q.printPoint();
+  if (r==q){printf("true\n");} else {printf("false\n");}
+  printVec((ecm(6)));
+  printf("inverse de %d modulo %d est : %d\n",a,b,inverse(a,b));
+  return 0;
 }

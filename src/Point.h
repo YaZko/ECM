@@ -41,7 +41,7 @@ public:
     //void doubles();
     int external_times(int k, const Point& p);
     
-    void print();
+    void printPoint();
     Point copy();
 };
 

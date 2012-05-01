@@ -49,7 +49,7 @@ bool Point::operator==(Point &Q) {
 Point Point::operator+(Point &Q)
 {   
     assert(this->mod==Q.get_mod());
-    int k, x, y;
+    int i, k, x, y;
     if (Q.is_infty()) {
         return Point(this->x, this->y, this->mod, this->a);
     } 
@@ -57,8 +57,8 @@ Point Point::operator+(Point &Q)
         return Point(Q.abs(), Q.ord(), Q.get_mod(), Q.get_a());
     }
     else if (this->x!=Q.abs()) {
-        if ((this->x-Q.abs()) % this->mod == 0) {throw (new Damned(this->x-Q.abs()));}
-        k = (this->y-Q.ord())/(this->x-Q.abs());
+      i = inverse(this->x-Q.abs(),this->mod);
+        k = (this->y-Q.ord())*i;
         x = (k*k-this->x-Q.abs())%(this->mod);
         y = (k*(this->x-x)-this->y)%(this->mod);
         return Point(x,y,this->mod, this->a);

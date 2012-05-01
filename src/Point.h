@@ -12,6 +12,7 @@
 #include <iostream>
 #include <assert.h>
 #include "damned.h"
+#include "utils.h"
 
 using namespace std;
 

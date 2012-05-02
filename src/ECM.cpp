@@ -12,7 +12,7 @@
 #include <vector>
 #include <math.h>
 
-#define B 10
+#define B 100
 
 using namespace std;
 
@@ -114,7 +114,7 @@ int main()
   //p.printPoint();
   //q.printPoint();
   if (r==q){printf("true\n");} else {printf("false\n");}
-  printVec((ecm(5)));
+  printVec((ecm(19)));
   printf("inverse de %d modulo %d est : %d\n",a,b,inverse(a,b));
   return 0;
 }

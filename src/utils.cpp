@@ -38,8 +38,9 @@ int inverse(int a, int N) {
   bezout(a,N,&u,&v);
   if (a*u + N*v == 1) {
     return u;
-  }
-  else {
+  } else if (a*u + N*v == -1) {
+    return (-u);
+  } else {
     throw a;
   }
 }

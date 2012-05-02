@@ -1,42 +1,5 @@
-#include <vector>
-#include <stdlib.h>
-#include <math.h>
-#include <cmath>
+#include "pollard.h"
 #define B 100
-
-using namespace std;
-
-int pgcd(int a, int b) {
-    if (b==0) {
-        return a;
-    }
-    else {
-        return pgcd(b, a % b);
-    }
-}
-
-void print (vector<int> myvector) {
-    vector<int>::iterator it;
-    for ( it=myvector.begin() ; it < myvector.end(); it++ )
-        printf("- %d ",*it);
-    printf("\n");
-}
-
-bool isprime(int n) {
-    if (n==2) {return true;}
-    int i=2;
-    if ((n%i)==0) {
-        return false;
-    }    
-    i++;
-    while (i<=sqrt(n)) {
-        if ((n%i)==0) {
-            return false;
-        }
-        i+=2;
-    }
-    return true;
-}
 
 vector<int> pollard(int N) {
     int d;
@@ -96,11 +59,4 @@ vector<int> pollard(int N) {
     }
     vector<int> v = vector<int>(1, -1);
     return v;
-}
-
-
-int main() {
-    vector<int> v = pollard(876534501);
-    print(v);
-    return 0;
 }

@@ -37,22 +37,22 @@ int inverse(int a, int N) {
   a = a % N;
   bezout(a,N,&u,&v);
   if (a*u + N*v == 1) {
-    return u;
+    return (u%N);
   } else if (a*u + N*v == -1) {
-    return (-u);
+    return ((-u)%N);
   } else {
     throw a;
   }
 }
 
-void printVec(vector<int> myvector) {
+void print(vector<int> myvector) {
     vector<int>::iterator it;
     for ( it=myvector.begin() ; it < myvector.end(); it++ )
         printf("- %d ",*it);
     printf("\n");
 }
 
-/*bool isprime(int n) {
+bool isprime(int n) {
     if (n==2) {return true;}
     int i=2;
     if ((n%i)==0) {
@@ -67,4 +67,3 @@ void printVec(vector<int> myvector) {
     }
     return true;
 }
-*/

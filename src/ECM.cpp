@@ -16,30 +16,6 @@
 
 using namespace std;
 
-void print (vector<int> myvector) 
-{
-    vector<int>::iterator it;
-    for ( it=myvector.begin() ; it < myvector.end(); it++ )
-        printf("- %d ",*it);
-    printf("\n");
-}
-
-bool isprime(int n) {
-    if (n==2) {return true;}
-    int i=2;
-    if ((n%i)==0) {
-        return false;
-    }    
-    i++;
-    while (i<=sqrt(n)) {
-        if ((n%i)==0) {
-            return false;
-        }
-        i+=2;
-    }
-    return true;
-}
-
 vector<int> list_primes(int N)
 {
     vector<int> w = vector<int> (1, 2);
@@ -88,7 +64,7 @@ vector<int> ecm(int N)
                 P = P*power_primes[i];
                 P.printPoint();
             } catch (int g) {
-                printf("LOL : %d\n",g);   
+                printf("LOL : %d\n",g);
             }
             i++;
         }
@@ -114,7 +90,7 @@ int main()
   //p.printPoint();
   //q.printPoint();
   if (r==q){printf("true\n");} else {printf("false\n");}
-  printVec((ecm(19)));
+  print((ecm(21)));
   printf("inverse de %d modulo %d est : %d\n",a,b,inverse(a,b));
   return 0;
 }

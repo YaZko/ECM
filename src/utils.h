@@ -18,7 +18,7 @@ using namespace std;
 int pgcd(int a, int b);
 void bezout(int a, int b, int* u, int* v);
 int inverse(int a, int N);
-void printVec(vector<int> v);
-//bool isprime(int n);
+void print(vector<int> v);
+bool isprime(int n);
 
 #endif

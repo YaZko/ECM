@@ -11,15 +11,18 @@
 #include "Point.h"
 #include <vector>
 #include <math.h>
+#include "pollard.h"
+
 
 #define B 100
 
 using namespace std;
 
-vector<int> list_primes(int N)
+
+vector<long> list_primes(long N)
 {
-    vector<int> w = vector<int> (1, 2);
-    int i;
+    vector<long> w = vector<long> (1, 2);
+    long i;
     for (i=3 ; i<=N; i+=2) 
     {
         if (isprime(i))
@@ -27,14 +30,14 @@ vector<int> list_primes(int N)
             w.push_back(i);
         }
     }
-//Reste à calculer les puissances des trucs, me faut le net pour itérateurs qur les vecteurs    vector<int> v = 
+//Reste à calculer les puissances des trucs, me faut le net pour itérateurs qur les vecteurs    vector<long> v = 
     return w;
 }
 
-vector<int> list_power_primes(vector<int> primes, int b) {
-    int i,q,aux;
-    vector<int> res = vector<int>();
-    for (i=0 ; i<(int)primes.size() ; i++) {
+vector<long> list_power_primes(vector<long> primes, long b) {
+    long i,q,aux;
+    vector<long> res = vector<long>();
+    for (i=0 ; i<(long)primes.size() ; i++) {
         q = aux = primes[i];
         while (aux <= b) {
             aux *= q;
@@ -44,53 +47,74 @@ vector<int> list_power_primes(vector<int> primes, int b) {
     return res;
 }
 
-vector<int> ecm(int N) 
+vector<long> ecm(long N) 
 {
-    vector<int> primes = list_primes(B); /*On récupère la liste des premiers <=B*/
-    print(primes);
+    vector<long> primes = list_primes(B); /*On récupère la liste des premiers <=B*/
+  //  print(primes);
     
-    vector<int> power_primes = list_power_primes(primes,B);
-    print(power_primes);
+    vector<long> power_primes = list_power_primes(primes,B);
+  //  print(power_primes);
     
-    int a = 1;
+    long a = 1;
+    if (isprime(N)) 
+    {
+        vector<long> w = vector<long> (1, N);
+        printf("Byebye par le nord via %ld\n", N );
+        return w;
+    }
+    if (N==1) 
+    {
+        return vector<long>();
+        printf("Byebye par l'ouest\n");
+    }
     while (a<B) {
-        printf("a : %d\n",a);
-        int i = 0;
+      //  printf("a : %ld\n",a);
+        long i = 0;
         Point P = Point(0,1, N,a); /*Point de départ dont on calculera les puissances premières*/
-        int g;
-        while (i<(int)primes.size()) {        
+        while (i<(long)primes.size()) {        
             try {
-                printf("prime : %d\n", power_primes[i]);
+            //    printf("prime : %ld\n", power_primes[i]);
                 P = P*power_primes[i];
-                P.printPoint();
-            } catch (int g) {
-                printf("LOL : %d\n",g);
+  //              P.printPoint();
+            } catch (long g) {
+                //printf("LOL : %ld\n",g);
+                long d = pgcd(N, g);
+                if (d%N!=0)
+                {
+                    vector<long> v = ecm(N/d);
+                    if (isprime(d))
+                    {
+                        vector<long> w = vector<long> (1, d);
+                        w.insert(w.end(),v.begin(),v.end());
+                        printf("Byebye par le Sud via %ld\n", d);
+                        return w;
+                    }
+                    else 
+                    {
+                        vector<long> w = ecm(d);
+                        w.insert(w.end(),v.begin(),v.end());
+                        printf("Byebye par l'Est\n");
+                        return w;
+                    } 
+                }
+
             }
             i++;
         }
         a++;
     }
-    return primes;
 }
 
 int main()
 {
-  int a,b,u,v;
-  a = 3;
-  b = 7;
-  bezout(a,b,&u,&v);
-  printf("a : %d, b : %d -> u : %d, v : %d\n",a,b,u,v);
-  Point p(0,3,6,1);
-  Point q(0,2,6,1);
-  Point r(0,2,6,1);
-  p.printPoint();
-  q.printPoint();
-  //(q+q).printPoint();
-  //(q*2).printPoint();
-  //p.printPoint();
-  //q.printPoint();
-  if (r==q){printf("true\n");} else {printf("false\n");}
-  print((ecm(21)));
-  printf("inverse de %d modulo %d est : %d\n",a,b,inverse(a,b));
+    double time_ini = get_cpu_time();
+    double current;
+    print((ecm(2345658765)));
+    current = get_cpu_time();
+    printf("ECM : %f\n", current-time_ini);
+    print(pollard(2345658765));
+    current = get_cpu_time();
+    printf("pollard : %f\n", current-time_ini);
+ // printf("inverse de %ld modulo %ld est : %ld\n",a,b,inverse(a,b));
   return 0;
 }

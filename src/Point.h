@@ -19,28 +19,28 @@ using namespace std;
 class Point 
 {
 private:
-    int x;
-    int y;
+    long x;
+    long y;
     bool infty;
-    int mod;
-    int a;
+    long mod;
+    long a;
     
 public:
-    Point(int n, int a);
-    Point(int x, int y, int n, int a);
+    Point(long n, long a);
+    Point(long x, long y, long n, long a);
     
-    int abs();
-    int ord();
+    long abs();
+    long ord();
     bool is_infty();
-    int get_mod();
-    int get_a();
+    long get_mod();
+    long get_a();
     
     bool operator==(Point &Q);
     Point operator+(Point &Q);
-    Point operator*(int k);
+    Point operator*(long k);
     void opposite();
     //void doubles();
-    int external_times(int k, const Point& p);
+    long external_times(long k, const Point& p);
     
     void printPoint();
     Point copy();

@@ -12,13 +12,16 @@
 #include <vector>
 #include <math.h>
 #include "damned.h"
+#include <sys/time.h>
+#include <sys/resource.h>
 
 using namespace std;
 
-int pgcd(int a, int b);
-void bezout(int a, int b, int* u, int* v);
-int inverse(int a, int N);
-void print(vector<int> v);
-bool isprime(int n);
+long pgcd(long a, long b);
+void bezout(long a, long b, long* u, long* v);
+long inverse(long a, long N);
+void print(vector<long> v);
+bool isprime(long n);
+double get_cpu_time(void);
 
 #endif

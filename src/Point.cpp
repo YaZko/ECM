@@ -9,20 +9,20 @@
 #include "Point.h"
 
 
-Point::Point(int n, int a):x(0), y(0), infty(true), mod(n), a(a)
+Point::Point(long n, long a):x(0L), y(0L), infty(true), mod(n), a(a)
 {
 }
 
-Point::Point(int x, int y, int n, int a):x(x%n), y(y%n), infty(false), mod(n), a(a)
+Point::Point(long x, long y, long n, long a):x(x%n), y(y%n), infty(false), mod(n), a(a)
 {
 }
 
-int Point::abs()
+long Point::abs()
 {
     return x;
 }
 
-int Point::ord()
+long Point::ord()
 {
     return y;
 }
@@ -32,12 +32,12 @@ bool Point::is_infty()
     return infty;
 }
 
-int Point::get_mod()
+long Point::get_mod()
 {
     return mod;
 }
 
-int Point::get_a() 
+long Point::get_a() 
 {
     return a;
 }
@@ -49,7 +49,7 @@ bool Point::operator==(Point &Q) {
 Point Point::operator+(Point &Q)
 {   
     assert(this->mod==Q.get_mod());
-    int i, k, x, y;
+    long i, k, x, y;
     if (Q.is_infty()) {
         return Point(this->x, this->y, this->mod, this->a);
     } 
@@ -86,7 +86,7 @@ void Point::opposite()
 }
 
 
-Point Point::operator*(int k)
+Point Point::operator*(long k)
 {
     Point p = this->copy();
     while (k!=1) {
@@ -113,7 +113,7 @@ void Point::printPoint()
     }
     else 
     {
-        printf("(%d, %d)\n", x, y);
+        printf("(%ld, %ld)\n", x, y);
     }
 }
 

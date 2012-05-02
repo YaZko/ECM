@@ -8,7 +8,7 @@
 
 #include "utils.h"
 
-int pgcd(int a, int b) {
+long pgcd(long a, long b) {
     if (b==0) {
         return a;
     }
@@ -17,8 +17,8 @@ int pgcd(int a, int b) {
     }
 }
 
-void bezout(int a, int b, int* u, int* v) {
-  int q,r,s,t;
+void bezout(long a, long b, long* u, long* v) {
+  long q,r,s,t;
   if (b==0) {
     (*u) = 1;
     (*v) = 0;
@@ -32,29 +32,39 @@ void bezout(int a, int b, int* u, int* v) {
   }
 }
 
-int inverse(int a, int N) {
-  int u,v;
+long inverse(long a, long N) {
+  long u,v;
   a = a % N;
   bezout(a,N,&u,&v);
   if (a*u + N*v == 1) {
-    return (u%N);
+      long i=u%N;
+      if (i<0) {
+          return i+N;
+      } else {
+          return i;
+      }
   } else if (a*u + N*v == -1) {
-    return ((-u)%N);
+      long i=-u%N;
+      if (i<0) {
+          return i+N;
+      } else {
+          return i;
+      }
   } else {
     throw a;
   }
 }
 
-void print(vector<int> myvector) {
-    vector<int>::iterator it;
+void print(vector<long> myvector) {
+    vector<long>::iterator it;
     for ( it=myvector.begin() ; it < myvector.end(); it++ )
-        printf("- %d ",*it);
+        printf("- %ld ",*it);
     printf("\n");
 }
 
-bool isprime(int n) {
+bool isprime(long n) {
     if (n==2) {return true;}
-    int i=2;
+    long i=2;
     if ((n%i)==0) {
         return false;
     }    
@@ -63,7 +73,20 @@ bool isprime(int n) {
         if ((n%i)==0) {
             return false;
         }
-        i+=2;
+        i=i+2;
     }
     return true;
+}
+
+
+double get_cpu_time(void)
+{
+    struct timeval tim;
+    struct rusage ru;
+    getrusage(RUSAGE_SELF, &ru);
+    tim = ru.ru_utime;
+    double t = (double) tim.tv_sec + (double) tim.tv_usec /1000000.0;
+    tim = ru.ru_stime;
+    t += (double) tim.tv_sec + (double) tim.tv_usec /1000000.0;
+    return t;
 }

@@ -16,5 +16,5 @@
 
 
 using namespace std;
-
+vector<long> pollard(long n);
 #endif

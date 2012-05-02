@@ -87,9 +87,8 @@ vector<int> ecm(int N)
                 printf("prime : %d\n", power_primes[i]);
                 P = P*power_primes[i];
                 P.printPoint();
-            } catch (Damned d) {
-                g = d.get_int();
-                printf("LOL : %d",g);   
+            } catch (int g) {
+                printf("LOL : %d\n",g);   
             }
             i++;
         }
@@ -104,18 +103,18 @@ int main()
   a = 3;
   b = 7;
   bezout(a,b,&u,&v);
-    printf("a : %d, b : %d -> u : %d, v : %d\n",a,b,u,v);
+  printf("a : %d, b : %d -> u : %d, v : %d\n",a,b,u,v);
   Point p(0,3,6,1);
   Point q(0,2,6,1);
   Point r(0,2,6,1);
   p.printPoint();
   q.printPoint();
-  (q+q).printPoint();
-  (q*2).printPoint();
-  p.printPoint();
-  q.printPoint();
+  //(q+q).printPoint();
+  //(q*2).printPoint();
+  //p.printPoint();
+  //q.printPoint();
   if (r==q){printf("true\n");} else {printf("false\n");}
-  printVec((ecm(6)));
+  printVec((ecm(5)));
   printf("inverse de %d modulo %d est : %d\n",a,b,inverse(a,b));
   return 0;
 }

@@ -58,24 +58,25 @@ Point Point::operator+(Point &Q)
     }
     else if (this->x!=Q.abs()) {
       i = inverse(this->x-Q.abs(),this->mod);
-        k = (this->y-Q.ord())*i;
-        x = (k*k-this->x-Q.abs())%(this->mod);
-        y = (k*(this->x-x)-this->y)%(this->mod);
-        return Point(x,y,this->mod, this->a);
+      k = (this->y-Q.ord())*i;
+      x = (k*k-this->x-Q.abs())%(this->mod);
+      y = (k*(this->x-x)-this->y)%(this->mod);
+      return Point(x,y,this->mod, this->a);
     } 
     else if (this->y!=Q.ord()) {
-        return Point(this->mod, this->a);
+      return Point(this->mod, this->a);
     } 
     else if (this->y==0) {
-        assert((*this)==Q);
-        return Point(this->mod, this->a);
+      assert((*this)==Q);
+      return Point(this->mod, this->a);
     } 
     else {
-        assert((*this)==Q);
-        k = (3*this->x*this->x+A)/(2*this->y);
-        x = (k*k-2*this->x)%(this->mod);
-        y = (k*(this->x-x)-this->y)%(this->mod);
-        return Point(x,y,this->mod, this->a);
+      assert((*this)==Q);
+      i = inverse(2*this->y,this->mod);
+      k = (3*this->x*this->x+A)*i;
+      x = (k*k-2*this->x)%(this->mod);
+      y = (k*(this->x-x)-this->y)%(this->mod);
+      return Point(x,y,this->mod, this->a);
     }
 }
 

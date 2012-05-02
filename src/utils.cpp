@@ -40,7 +40,7 @@ int inverse(int a, int N) {
     return u;
   }
   else {
-    throw (new Damned(a));
+    throw a;
   }
 }
 

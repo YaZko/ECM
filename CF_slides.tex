@@ -1,0 +1,170 @@
+\documentclass{beamer}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{mathrsfs, alltt, amssymb, amsmath, amsfonts, stmaryrd, amsthm}
+\usepackage{etex}
+\usetikzlibrary{automata}
+%\usetheme{Hannover}
+\usetheme{Boadilla}
+\setbeamertemplate{navigation symbols}{}
+\usecolortheme{beaver}
+\usepackage[applemac]{inputenc}
+\usepackage[french]{babel}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{bussproofs}
+\usetikzlibrary{arrows,shapes}
+\bibliographystyle{plain}
+
+
+\newcommand{\restate}[1]{
+\begin{center}\begin{minipage}[t]{0.80\linewidth}#1\end{minipage}\end{center}}
+
+\title[Paulard versus ECM]{Projet de calcul formel : Algorithme ECM de factorisation d'entiers}
+\author{Christophe Vuillot et Yannick Zakowski}
+\date{}
+
+\AtBeginSection[]{
+   \begin{frame}
+   \begin{center}{\Large Plan }\end{center}
+   \tableofcontents[currentsection,hideothersubsections]
+   \end{frame} 
+}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+	\begin{figure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{L'algorithme $p-1$ de Pollard}
+
+$N$ un entier à décomposer
+\begin{itemize}
+	\item Ne serait-il pas premier ? Non : on voudrait donc un bon candidat diviseur, par exemple un élément $g$ non inversible sur $\mathbb{Z}/{N\mathbb{Z}}$
+	\item Pour cela, tirons aléatoirement un $a$ majoré par une borne de lissage bien choisie.
+	\item Cherchons une puissance de $a$ dont le $pgcd$ avec $N$ est différent de $1$. 
+	\item C'est gagné !
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Un algorithme efficace...}
+	L'efficacité de l'algorithme $p-1$ de Pollard repose sur la relativement forte densité d'éléments non inversibles sur $\mathbb{Z}/{N\mathbb{Z}}.$
+	\pause
+	
+	On peut démontrer qu'il possède une complexité en $O(n^{1/4}).$
+\end{frame}
+
+\begin{frame}{L'algorithme ECM}
+
+	\begin{itemize}
+	\item	Conserver cette idée de candidat diviseur en tant qu'élément non-inversible sur $\mathbb{Z}/{N\mathbb{Z}}$ 
+	\item mais augmenter nos chances de le trouver.
+\pause
+
+\item L'idée va être de calculer à présent sur une courbe elliptique !
+\end{itemize}
+\end{frame}
+
+\begin{frame}{La formule de la somme de deux points}
+	
+ Considérons la courbe elliptique $\mathcal{E}$ d'équation $y^2=x^3+ax+1.$
+ 
+ Soit $P=(x_P,\; y_P)$ et $Q =(x_Q, \; y_Q)$ deux points de $\mathcal{E}.$\\
+ 
+ \vspace{1cm}
+ Montrons que
+  $\left\{
+\begin{aligned}
+	&x_{P+Q}=\lambda^2 - x_p - x_Q\\
+	&y_{P+Q}=\lambda(x_P + x_Q - x_{P+Q}) -y_P
+\end{aligned}
+\; avec \lambda=\frac{y_P-y_Q}{x_P-x_Q}
+\right.
+$
+ \vspace{1cm}
+ 
+ La droite $(PQ)$ a pour équation : 
+ \[y=\lambda x+ y_P - \lambda x_P \text{ avec }\lambda = \frac{y_Q-y_P}{x_Q-x_P} \]
+ \end{frame}
+ 
+ \begin{frame}{La formule de la somme de deux points}
+ Cherchons les coordonnées du troisième point d'intersection de cette droite avec $\mathcal{E} : $\\
+\begin{equation*}
+\left\{
+\begin{aligned}
+	&y=\lambda x+ y_P - \lambda x_P \\
+	&y^2=x^3+ax+1
+\end{aligned}
+\right.
+\end{equation*}
+
+Son abscisse vérifie donc :
+\begin{equation*}
+\begin{aligned}
+	&(\lambda x+ y_P - \lambda x_P)^2=x^3+ax+1\\
+	&x^3 - \lambda^2x^2+(a+2\lambda^2x_P-2\lambda y_P)x+1=0\\
+\end{aligned}
+\end{equation*}
+\begin{equation*}
+\begin{aligned}
+	&x_P\text{ étant solution }\\&(x-x_P)(x^2+(x_P-\lambda^2)x+(a+2\lambda^2x_P-2\lambda y_P+x_P(x_P-\lambda^2))=0\\
+	&x_Q\text{ étant solution }\\&(x-x_P)(x-x_Q)(x+x_P+x_Q-\lambda^2)=0
+\end{aligned}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{La formule de la somme de deux points}
+\centering
+$
+\text{D'où }\left\{
+\begin{aligned}
+	&x_{P+Q}=\lambda^2 - x_p - x_Q\\
+	&y_{P+Q}=-(\lambda(\lambda^2- x_P - x_Q) +y_P-\lambda x_P)
+\end{aligned}
+\right.
+$
+\vspace{1cm}
+
+$\left\{
+\begin{aligned}
+	&x=\lambda^2 - x_p - x_Q\\
+	&y=-\lambda(\lambda^2-2x_P - x_Q) -y_P
+\end{aligned}
+\right.
+$
+\vspace{1cm}
+
+$\text{Soit }\left\{
+\begin{aligned}
+	&x=\lambda^2 - x_p - x_Q\\
+	&y=\lambda(x_P + x_Q - x_{P+Q}) -y_P
+\end{aligned}
+\right.
+$
+
+\end{frame}
+
+\begin{frame}{L'idée}
+	\begin{itemize}
+		\item Soit $P$ un point sur notre courbe.
+		\item Calculons ses multiples sur $E(\mathbb F_N)$.
+		\item Ce n'est pas une véritable courbe elliptique, on est amené à trouver un élément non-inversible de $\mathbb{Z}/N\mathbb{Z}$
+		\item Nous retombons dans le cadre de Pollard
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}{Complexité}
+	On peut montrer que la complexité ne dépend que de $p$ et non de $n$, selon :
+	\centering $O(e^{(\sqrt(2)+o(1))\sqrt{\log{p}\log{\log{p}}}})$
+\end{frame}
+
+
+
+\end{document}

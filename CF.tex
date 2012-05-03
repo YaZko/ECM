@@ -20,11 +20,51 @@
 \newtheorem*{ex}{Exemple}
 
 \newcommand{\lis}[2]{#1_1,\;\dots,\;#1_{#2}}
+\newcommand{\pollard}{\emph{Pollard}}
+\newcommand{\ecm}{\emph{ECM}}
+
+\newcommand{\znz}{$\mathbb{Z}/\raisebox{-0.6ex}{$n\mathbb{Z}$}$ }
 
 \title{Calcul formel}
 \author{Christophe Vuillot et Yannick Zakowski}
 \begin{document}
 \maketitle
+ 
+ \section*{Introduction}
+ 
+ Nous nous intéressons dans ce document au problème de la factorisation d'un entier. La démarche proposé est de s'intéresser dans un premier temps à l'algorithme $p-1$ de \pollard, avant de s'intéresser à l'algorithme \emph{ECM}, que l'on peut considérer comme une amélioration du premier, en se plaçant sur une courbe elliptique.
+ 
+Est joint à ce rapport le code des implémentations réalisées, en \emph{C++}.
+
+\section{Principe général commun}
+
+	Dans les deux algorithmes proposés, l'idée globale est de se placer sur un ensemble n'étant pas un corps et dont les éléments non-inversibles ont la particularité d'avoir une forte probabilité d'être des diviseurs de l'entier considéré.
+	
+	Une fois sur cet ensemble, nous calculerons une suite d'éléments de celui-ci jusqu'à en trouver un non-inversible.
+
+\section{L'algorithme $p-1$ de \pollard}
+
+	\subsection{Principe}
+	
+	Soit $N$ l'entier à factoriser. Nous nous plaçons sur \znz, et l'on voudrait trouver un élément $g$ non-inversible. On aura alors $pgcd(N,g)\neq 1$, et donc de bonnes chances pour que $pgcd(N,g)|_N$.
+	
+	Pour ce faire, tirons aléatoirement un $a$ majoré par une borne de lissage fixée, puis calculons ses puissances successives en testant à chaque étape si $pgcd(N,g)\neq 1$
+	
+	Si l'on note $\Phi$ la fonction d'Euler, nous savons que la densité d'éléments non-inversibles dans \znz\ est de $\frac{\Phi(N)}{N}.$ La probabilité d'en trouver un est donc assez forte, si bien qu'il est démontré que l'algorithme $p-1$ de \pollard possède une complexité en $O(n^{1/4}).$
+
+\section{L'algorithme \emph{ECM}}
+ 
+ \subsection{Principe}
+ 
+ Nous voulons conserver l'idée d'un candidat diviseur en tant qu'élément non-inversible de \znz, mais nous voudrions trouver un autre ensemble sur lequel la suite d'éléments que nous calculons nous en fournisse un plus rapidement en moyenne.
+ 
+ L'astuce va être de se placer sur une courbe elliptique ! Ou du moins pas tout à fait : si l'on appelle $\mathcal{E}$ la courbe elliptique considérée, nous effectuons nos calculs sur $\mathcal{E}(\mathbb{F}_N).$
+ 
+ $\mathbb{F}_N)$ n'étant pas un corps, nous n'avons pas une véritable courbe elliptique. Mais les points coïncident avec ceux obtenus en effectuant les mêmes calculs que sur $\mathcal{E}(\mathbb{F}_p)$, où $p$ est un diviseur premier de $N$, sauf si l'on obtiendrait sur celui-ci le point infini $\mathcal{O}$ : en ce cas, c'est que nous tentons de calculer sur $\mathbb{F}_N$ un inverse n'existant pas.
+ 
+ Ceci provient de la formule analytique de la somme de deux points, dont une démonstration vous est proposée ci-dessous.
+ 
+ \subsection{Formule de la somme de deux points}
  
  Considérons la courbe elliptique $\mathcal{E}$ d'équation $y^2=x^3+ax+1.$
  
@@ -76,6 +116,8 @@ $\text{Soit }\left\{
 \end{aligned}
 \right.
 $
+
+
 
 
  \end{document}

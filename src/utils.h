@@ -11,7 +11,6 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
-#include "damned.h"
 #include <sys/time.h>
 #include <sys/resource.h>
 

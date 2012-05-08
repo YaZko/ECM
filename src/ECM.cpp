@@ -89,18 +89,22 @@ vector<long> ecm(long N) {
     }
     a++;
   }
+  return vector<long>();
 }
 
 int main()
 {
     double time_ini = get_cpu_time();
     double current;
-    print((ecm(2992345658)));
+    long n = 42424242;
+    print((ecm(n)));
+    printf(" %ld\n",n);
     current = get_cpu_time();
     printf("ECM : %f\n", current-time_ini);
-    print(pollard(2992345658));
+    time_ini = get_cpu_time();
+    print(pollard(n));
+    printf(" %ld\n",n);
     current = get_cpu_time();
     printf("pollard : %f\n", current-time_ini);
- // printf("inverse de %ld modulo %ld est : %ld\n",a,b,inverse(a,b));
   return 0;
 }

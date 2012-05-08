@@ -63,6 +63,7 @@ void print(vector<long> myvector) {
 }
 
 bool isprime(long n) {
+    n = abs(n);
     if (n==2) {return true;}
     long i=2;
     if ((n%i)==0) {
